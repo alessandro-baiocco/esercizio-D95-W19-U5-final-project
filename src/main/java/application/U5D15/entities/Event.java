@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Event {
     private int id;
     private String title;
     private String description;
-    private Date data;
+    private LocalDateTime data;
     private String place;
     private int numberMax;
     @ManyToMany

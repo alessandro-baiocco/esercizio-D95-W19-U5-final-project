@@ -41,16 +41,4 @@ public class UserController {
         usersService.findByIdAndDelete(id);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
 }

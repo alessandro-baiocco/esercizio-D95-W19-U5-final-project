@@ -30,6 +30,7 @@ public class EventService {
         newEvent.setDescription(body.description() == null ? "nessuna descrizione" : body.description());
         newEvent.setPlace(body.place());
         newEvent.setNumberMax(body.numberMax());
+        newEvent.setData(body.data());
         newEvent.setPicture("https://ui-avatars.com/api/?name=" + body.title().replace(" " , ""));
         newEvent.setParticipants(partecipanti);
 
