@@ -21,8 +21,6 @@ import java.io.IOException;
 public class AuthController {
     @Autowired
     private AuthService authService;
-    @Autowired
-    private UserService usersService;
 
 
     @PostMapping("/login")
@@ -41,7 +39,7 @@ public class AuthController {
             throw new BadRequestException(validation.getAllErrors());
         } else {
             try {
-                return usersService.save(body);
+                return authService.save(body);
             }catch (IOException e){
                 System.err.println(e.getMessage());
                 return null;

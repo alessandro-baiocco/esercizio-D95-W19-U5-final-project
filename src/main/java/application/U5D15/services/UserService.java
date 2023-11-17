@@ -38,23 +38,7 @@ public class UserService {
 
 
 
-    public User save(NewUserDTO body) throws IOException {
-        userRepo.findByEmail(body.email()).ifPresent( user -> {
-            throw new BadRequestException("L'email " + user.getEmail() + " è già utilizzata!");
-        });
 
-        User newUser = new User();
-
-        newUser.setLastName(body.lastName());
-        newUser.setName(body.name());
-        newUser.setUserName(body.userName());
-        newUser.setPassword(body.password());
-        newUser.setEmail(body.email());
-        newUser.setRole(Ruolo.UTENTE);
-
-
-        return userRepo.save(newUser);
-    }
 
 
 
