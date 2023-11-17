@@ -4,7 +4,6 @@ import application.U5D15.entities.Event;
 import application.U5D15.entities.User;
 import application.U5D15.exceptions.BadRequestException;
 import application.U5D15.payloads.NewEventDTO;
-import application.U5D15.payloads.UserIdDTO;
 import application.U5D15.repositories.EventRepository;
 import application.U5D15.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +95,7 @@ public class EventController {
 
 
     @PatchMapping("/{id}/upload")
+    @PreAuthorize("hasAuthority('ORGANIZZATORE')")
     public Event uploadPicture(@PathVariable int id , @RequestParam("picture")  MultipartFile body) throws IOException {
       return eventService.setEventPicture(id , body);
     }

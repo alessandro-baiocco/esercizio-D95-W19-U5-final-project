@@ -42,8 +42,8 @@ public class UserService {
         found.setPassword(body.password());
         found.setUserName(body.userName());
 
-        userRepo.save(found);
-        return found;
+
+        return  userRepo.save(found);
     }
 
 

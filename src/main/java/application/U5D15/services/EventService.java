@@ -1,12 +1,10 @@
 package application.U5D15.services;
 
 import application.U5D15.entities.Event;
-import application.U5D15.entities.Parteciaption;
 import application.U5D15.entities.User;
 import application.U5D15.exceptions.BadRequestException;
 import application.U5D15.exceptions.NotEventFoundException;
 import application.U5D15.payloads.NewEventDTO;
-import application.U5D15.payloads.UserIdDTO;
 import application.U5D15.repositories.EventRepository;
 import application.U5D15.repositories.UserRepository;
 import com.cloudinary.Cloudinary;
