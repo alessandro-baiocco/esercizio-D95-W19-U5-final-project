@@ -42,6 +42,7 @@ public class UserService {
 
         newUser.setLastName(body.lastName());
         newUser.setName(body.name());
+        newUser.setUserName(body.userName());
         newUser.setPassword(body.password());
         newUser.setEmail(body.email());
         newUser.setRole(Ruolo.UTENTE);

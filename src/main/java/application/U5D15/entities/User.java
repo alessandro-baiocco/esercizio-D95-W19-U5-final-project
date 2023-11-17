@@ -1,6 +1,8 @@
 package application.U5D15.entities;
 
 import application.U5D15.enums.Ruolo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"password" , "events"})
 public class User {
     @Id
     @GeneratedValue
