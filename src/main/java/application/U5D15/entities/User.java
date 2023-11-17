@@ -2,10 +2,18 @@ package application.U5D15.entities;
 
 import application.U5D15.enums.Ruolo;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue
@@ -13,6 +21,7 @@ public class User {
     private String name;
     private String lastName;
     private String email;
+    private String password;
     private String userName;
     @Enumerated(EnumType.STRING)
     private Ruolo role;
