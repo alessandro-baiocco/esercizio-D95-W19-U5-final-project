@@ -20,6 +20,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
+    private JWTAuthFilter jwtAuthFilter;
+    @Autowired
     private ExceptionsHandlerFilter exceptionsHandlerFilter;
 
 
@@ -29,7 +31,8 @@ public class SecurityConfig {
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
 
-
+        http.addFilterBefore(jwtAuthFilter , UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(exceptionsHandlerFilter, JWTAuthFilter.class);
 
 
 

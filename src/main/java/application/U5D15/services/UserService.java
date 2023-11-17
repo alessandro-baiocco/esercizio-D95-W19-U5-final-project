@@ -31,6 +31,11 @@ public class UserService {
         return userRepo.findByEmail(email)
                 .orElseThrow(() -> new NotUserFoundException("Utente con email " + email + " non trovato!"));
     }
+    public User findByUserName(String userName){
+        return userRepo.findByUserName(userName)
+                .orElseThrow(() -> new NotUserFoundException("Utente con userName " + userName + " non trovato!"));
+    }
+
 
 
     public User save(NewUserDTO body) throws IOException {

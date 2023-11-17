@@ -16,6 +16,6 @@ public record NewEventDTO(
         @NotNull(message = "la data è un campo obbligatorio")
         @Future(message = "la data deve essere nel futuro")
         LocalDateTime data,
-        @NotNull(message = "il luogo è un campo obbligatorio")
         @NotEmpty(message = "il luogo è un campo obbligatorio!")
+        @Size(min = 3, max=30, message = "Il luogo deve essere compreso tra 3 e 30 caratteri")
         String place) { }
