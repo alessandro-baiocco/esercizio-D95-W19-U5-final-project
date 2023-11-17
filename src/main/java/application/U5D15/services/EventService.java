@@ -2,6 +2,7 @@ package application.U5D15.services;
 
 import application.U5D15.entities.Event;
 import application.U5D15.entities.User;
+import application.U5D15.exceptions.BadRequestException;
 import application.U5D15.exceptions.NotEventFoundException;
 import application.U5D15.exceptions.NotUserFoundException;
 import application.U5D15.payloads.NewEventDTO;
@@ -20,7 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class EventService {
@@ -32,7 +35,7 @@ public class EventService {
     private Cloudinary cloudinary;
 
     public Event save(NewEventDTO body) throws IOException {
-        List<User> partecipanti = new ArrayList<>();
+        Set<User> partecipanti = new HashSet<>();
 
         Event newEvent = new Event();
 
@@ -87,19 +90,26 @@ public class EventService {
 
     public Event partecipate(int id , UserIdDTO userId) throws IOException{
         Event found = findById(id);
-        User user = userService.findById(userId.id());
-        found.getParticipants().add(user);
-        return eventRepo.save(found);
+        System.err.println(found);
+        if (found.getParticipants().size() < found.getNumberMax()){
+            User user = userService.findById(userId.id());
+            if(!found.getParticipants().add(user)){
+                throw new BadRequestException("fai gia parte di questo evento");
+            }else {
+                return eventRepo.save(found);
+            }
+        }else {
+            throw new BadRequestException("l'evento è pieno non puoi unirti");
+        }
     }
 
 
 
-    public Event setEventPicture(int id , MultipartFile file) throws IOException {
-        Event found = findById(id);
-        String newImage = (String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
-        found.setPicture(newImage);
-
-        return eventRepo.save(found);
+    public Event setEventPicture(int id , MultipartFile file) throws IOException , NotEventFoundException {
+            Event found = findById(id);
+            String newImage = (String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
+            found.setPicture(newImage);
+            return eventRepo.save(found);
     }
 
 

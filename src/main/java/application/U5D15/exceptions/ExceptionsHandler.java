@@ -41,6 +41,11 @@ public class ExceptionsHandler {
         return new ErrorResponseDTO(e.getMessage(), new Date());
     }
 
+    @ExceptionHandler(NotEventFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorsPayload handleNotFound(NotEventFoundException e){
+        return new ErrorsPayload(e.getMessage(), new Date());
+    }
 
 
     @ExceptionHandler(NotUserFoundException.class)

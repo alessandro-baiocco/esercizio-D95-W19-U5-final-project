@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -27,8 +28,21 @@ public class Event {
     @JoinTable(name = "event_user",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> participants;
+    private Set<User> participants;
     private String picture;
 
 
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", data=" + data +
+                ", place='" + place + '\'' +
+                ", numberMax=" + numberMax +
+                ", participants=" + participants.size() +
+                ", picture='" + picture + '\'' +
+                '}';
+    }
 }

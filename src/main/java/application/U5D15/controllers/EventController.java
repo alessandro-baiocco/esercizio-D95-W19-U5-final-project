@@ -108,7 +108,7 @@ public class EventController {
 
 
     @PatchMapping("/{id}/upload")
-    public Event uploadPicture(@PathVariable int id , @RequestParam("picture")  MultipartFile body) throws IOException , NotEventFoundException {
+    public Event uploadPicture(@PathVariable int id , @RequestParam("picture")  MultipartFile body) throws IOException {
       return eventService.setEventPicture(id , body);
     }
 
