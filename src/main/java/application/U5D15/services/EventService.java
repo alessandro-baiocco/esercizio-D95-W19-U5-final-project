@@ -8,6 +8,7 @@ import application.U5D15.exceptions.NotEventFoundException;
 import application.U5D15.payloads.NewEventDTO;
 import application.U5D15.payloads.UserIdDTO;
 import application.U5D15.repositories.EventRepository;
+import application.U5D15.repositories.UserRepository;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class EventService {
@@ -32,6 +30,8 @@ public class EventService {
     private UserService userService;
     @Autowired
     private Cloudinary cloudinary;
+    @Autowired
+    private UserRepository userRepository;
 
     public Event save(NewEventDTO body) throws IOException {
         Set<User> partecipanti = new HashSet<>();
@@ -87,11 +87,10 @@ public class EventService {
 
 
 
-    public Event partecipate(int id , UserIdDTO userId) throws IOException{
+    public Event partecipate(int id , User user) {
         Event found = findById(id);
         System.err.println(found);
         if (found.getParticipants().size() < found.getNumberMax()){
-            User user = userService.findById(userId.id());
             if(!found.getParticipants().add(user)){
                 throw new BadRequestException("fai gia parte di questo evento");
             }else {
@@ -110,6 +109,20 @@ public class EventService {
             found.setPicture(newImage);
             return eventRepo.save(found);
     }
+
+
+    public void removeFromList(int id , User user) {
+        Event found = findById(id);
+        Set<User> partecipants = found.getParticipants();
+        partecipants.removeIf(current -> current.getId() == user.getId());
+        found.setParticipants(partecipants);
+        eventRepo.save(found);
+        userService.removefromList(user);
+    }
+
+
+
+
 
 
 

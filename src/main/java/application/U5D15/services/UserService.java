@@ -48,11 +48,6 @@ public class UserService {
 
 
 
-
-
-
-
-
     public User findById(int id) throws NotUserFoundException{
         return userRepo.findById(id).orElseThrow(() -> new NotUserFoundException(id));
     }
@@ -79,6 +74,14 @@ public class UserService {
         User found = findByUserName(user);
         return found.getEvents();
     }
+
+
+    public void removefromList(User user){
+        userRepo.save(user);
+
+    }
+
+
 
 
 

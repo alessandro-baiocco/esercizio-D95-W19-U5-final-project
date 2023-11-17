@@ -1,6 +1,7 @@
 package application.U5D15.controllers;
 
 import application.U5D15.entities.Event;
+import application.U5D15.entities.User;
 import application.U5D15.exceptions.BadRequestException;
 import application.U5D15.payloads.NewEventDTO;
 import application.U5D15.payloads.UserIdDTO;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,18 +43,10 @@ public class EventController {
     }
 
 
-    @PutMapping("/{id}/partecipa")
-    public Event partecipate(@PathVariable int id , @RequestBody @Validated UserIdDTO userId , BindingResult validation){
-        if(validation.hasErrors()){
-            throw new BadRequestException(validation.getAllErrors());
-        } else {
-            try {
-           return eventService.partecipate(id , userId );
-        }catch (IOException e){
-                System.err.println(e.getMessage());
-                return null;
-            }
-    }}
+    @PutMapping("/{id}/me/partecipa")
+    public Event partecipate(@PathVariable int id , @AuthenticationPrincipal User currentUser ){
+           return eventService.partecipate(id , currentUser );
+    }
 
 
 
@@ -104,6 +98,14 @@ public class EventController {
     @PatchMapping("/{id}/upload")
     public Event uploadPicture(@PathVariable int id , @RequestParam("picture")  MultipartFile body) throws IOException {
       return eventService.setEventPicture(id , body);
+    }
+
+
+
+    @GetMapping("/{id}/me/remove")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeFromEvent(@AuthenticationPrincipal User currentUser, @PathVariable int id){
+        eventService.removeFromList(id, currentUser);
     }
 
 
