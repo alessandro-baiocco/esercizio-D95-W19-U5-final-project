@@ -2,6 +2,7 @@ package application.U5D15.controllers;
 
 
 
+import application.U5D15.entities.Event;
 import application.U5D15.entities.User;
 
 import application.U5D15.payloads.PutUserDTO;
@@ -13,6 +14,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -52,6 +55,12 @@ public class UserController {
         usersService.findByIdAndDelete(currentUser.getId());
     };
 
+    @GetMapping("/me/events")
+    public List<Event> getEvents(@AuthenticationPrincipal UserDetails currentUser){
+        return usersService.findUserEvents(currentUser.getUsername());
+    };
+
+
 
 
 
@@ -62,6 +71,8 @@ public class UserController {
     public void findByIdAndDelete(@PathVariable int id){
         usersService.findByIdAndDelete(id);
     }
+
+
 
 
 

@@ -1,22 +1,15 @@
 package application.U5D15.controllers;
 
 import application.U5D15.entities.Event;
-import application.U5D15.entities.User;
 import application.U5D15.exceptions.BadRequestException;
-import application.U5D15.exceptions.NotEventFoundException;
 import application.U5D15.payloads.NewEventDTO;
-import application.U5D15.payloads.PutUserDTO;
 import application.U5D15.payloads.UserIdDTO;
 import application.U5D15.repositories.EventRepository;
 import application.U5D15.services.EventService;
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -60,6 +53,7 @@ public class EventController {
                 return null;
             }
     }}
+
 
 
 

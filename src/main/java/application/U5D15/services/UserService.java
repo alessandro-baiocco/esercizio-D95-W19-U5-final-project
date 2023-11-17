@@ -1,5 +1,6 @@
 package application.U5D15.services;
 
+import application.U5D15.entities.Event;
 import application.U5D15.entities.User;
 import application.U5D15.exceptions.NotUserFoundException;
 import application.U5D15.payloads.PutUserDTO;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -69,6 +72,12 @@ public class UserService {
     public void findByIdAndDelete(int id) throws NotUserFoundException{
         User found = findById(id);
         userRepo.delete(found);
+    }
+
+
+    public List<Event> findUserEvents(String user){
+        User found = findByUserName(user);
+        return found.getEvents();
     }
 
 
