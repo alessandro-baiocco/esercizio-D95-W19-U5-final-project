@@ -1,12 +1,9 @@
 package application.U5D15.services;
 
 import application.U5D15.entities.User;
-import application.U5D15.enums.Ruolo;
-import application.U5D15.exceptions.BadRequestException;
 import application.U5D15.exceptions.NotUserFoundException;
-import application.U5D15.payloads.NewUserDTO;
+import application.U5D15.payloads.PutUserDTO;
 import application.U5D15.repositories.UserRepository;
-import com.cloudinary.Cloudinary;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,8 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 
 @Service
@@ -34,6 +29,18 @@ public class UserService {
     public User findByUserName(String userName){
         return userRepo.findByUserName(userName)
                 .orElseThrow(() -> new NotUserFoundException("Utente con userName " + userName + " non trovato!"));
+    }
+
+
+    public User findByIdAndUpdate(int id , PutUserDTO body) throws NotUserFoundException{
+        User found = findById(id);
+        found.setName(body.name());
+        found.setLastName(body.lastName());
+        found.setPassword(body.password());
+        found.setUserName(body.userName());
+
+        userRepo.save(found);
+        return found;
     }
 
 

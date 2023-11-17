@@ -6,7 +6,6 @@ import application.U5D15.payloads.NewUserDTO;
 import application.U5D15.payloads.UserLoginDTO;
 import application.U5D15.payloads.UserLoginSuccessDTO;
 import application.U5D15.services.AuthService;
-import application.U5D15.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;

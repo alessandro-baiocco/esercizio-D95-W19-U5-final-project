@@ -1,12 +1,10 @@
 package application.U5D15.payloads;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Past;
+
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDate;
-import java.util.Date;
 
 public record NewUserDTO(
         @NotEmpty(message = "Il nome è un campo obbligatorio!")

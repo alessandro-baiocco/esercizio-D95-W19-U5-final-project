@@ -7,6 +7,7 @@ import application.U5D15.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,7 @@ public class EventController {
 
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ORGANIZZATORE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void findByIdAndDelete(@PathVariable int id){
         eventService.findByIdAndDelete(id);
@@ -45,6 +47,7 @@ public class EventController {
 
 
     @PostMapping("")
+    @PreAuthorize("hasAuthority('ORGANIZZATORE')")
     @ResponseStatus(HttpStatus.CREATED)
     public Event saveEvent(@RequestBody @Validated NewEventDTO body , BindingResult validation){
         if(validation.hasErrors()){

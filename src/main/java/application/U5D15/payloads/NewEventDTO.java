@@ -3,7 +3,6 @@ package application.U5D15.payloads;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public record NewEventDTO(
         @NotEmpty(message = "Il titolo è un campo obbligatorio!")
